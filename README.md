@@ -1,21 +1,19 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/dkSCo0R2)
 # CSIS-quarterly-project
-Template to help fill and complete quarterly project
-_Keep track of this ReadME file as you go. Delete this line when ready_ 
 
-# Insert Project Name
+# Stream Helper
 ### 2025-26 CLHS Computer Science Independent Study
-_Insert Student Names_
+Ezra David Sanderson
 
 ## Targeted Topic or Skill
-_insert the specific topic and skill you focused on this quarter_
+I'm focusing on improving code organization, web development, and API interactions.
 
 ## Description
-_Insert the project description here. What does it do?_ 
+The project is a firefox Add-On that provides the user of a consolidated list of all streamers they follow, automatically opens favorited streams, and notifies them of streams who go live. 
 _Project purpose including inputs/algorithm/outputs_
 
 ## Defense
-_How did this project show evidence of the targeted topic or skill_
+The application functioning will prove that I familiarized myself with APIs and the repository will reflect my efforts to maintain organized code.
 
 ## Technical
 _List technical requirements including such as coding language, IDE used, required mechanical components or parts, libraries, or applications_
@@ -23,13 +21,10 @@ _List technical requirements including such as coding language, IDE used, requir
 ## Use
 _Insert directions for how to use your project and any command line dependencies and arguments. Think of this section as more of a instruction manual_
 
-
 ## Sources
 _Insert and sources used for research here_
 
 ## Steps and Progress 
-_Feel free to add any checklist items below to best communicate with your group_
-[Instructions for how to use GitHub text formatting] (https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) 
 
 _To mark a box as complete enter an X in between the brackets. See the first check for an example_
 - [X] Use github to keep track of code on weekly bases
