@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Livesteam Lurker",
+  "version": "1.0",
+  "description": "Shows all your followed streamers from Twitch and YouTube in one place. Automatically opens favorite streamers. Notifies you when certain streamers go live.",
+  "permissions": [
+  "identity",
+  "storage",
+  "https://api.twitch.tv/*",
+  "https://id.twitch.tv/*",
+  "https://www.googleapis.com/*",
+  "https://accounts.google.com/*"
+  ],
+  "browser_action": {
+  "default_popup": "popup.html",
+  "default_title": "Livestream Lurker"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  }
+}
