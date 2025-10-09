@@ -1,30 +1,73 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("streamers");
+document.addEventListener("DOMContentLoaded", async () => {
+    const container = document.getElementById("streamers");
 
-  document.getElementById("loginTwitch").addEventListener("click", async () => {
-    await browser.runtime.sendMessage({ type: "loginTwitch" });
-    container.innerText = "Twitch login complete.";
-  });
+    document.getElementById("twitchLogin").addEventListener("click", async () => {
+        await browser.runtime.sendMessage({
+            type: "twitchLogin"
+        });
+        container.innerText = "Twitch login complete. Fetching data wait wait wait wait wait wait stop rushing me";
 
-  document.getElementById("loginYouTube").addEventListener("click", async () => {
-    await browser.runtime.sendMessage({ type: "loginYouTube" });
-    container.innerText = "YouTube login complete.";
-  });
+        const response = await browser.runtime.sendMessage({
+            type: "getData"
+        });
+        updateDisplay(response);
+    });
 
-  setTimeout(async () => {
-    const response = await browser.runtime.sendMessage({ type: "getData" });
-    container.innerHTML = "";
+    document.getElementById("youtubeLogin").addEventListener("click", async () => {
+        await browser.runtime.sendMessage({
+            type: "youtubeLogin"
+        });
+        container.innerText = "YouTube login complete. Fetching data give me a second";
 
-    if (response.error) {
-      container.innerText = response.error;
-      return;
+        const response = await browser.runtime.sendMessage({
+            type: "getData"
+        });
+        updateDisplay(response);
+    });
+
+    const {
+        youtubeData
+    } = await browser.storage.local.get("youtubeData");
+    if (youtubeData && youtubeData.length > 0) {
+        updateDisplay({
+            youtube: youtubeData
+        });
     }
 
-    [...response.twitch, ...response.youtube].forEach(streamer => {
-      const div = document.createElement("div");
-      div.className = "streamer";
-      div.innerText = `[${streamer.platform}] ${streamer.name}`;
-      container.appendChild(div);
+    browser.runtime.sendMessage({
+        type: "getData"
+    }).then((response) => {
+        updateDisplay(response);
     });
-  }, 3000);
+
+    browser.runtime.onMessage.addListener((msg) => {
+        updateDisplay(msg);
+    });
+
+    function updateDisplay(response) {
+        if (!response) return;
+        container.innerHTML = "";
+
+        if (response.error) {
+            container.innerText = response.error;
+            return;
+        }
+
+        const allStreamers = [
+            ...(response.twitch || []),
+            ...(response.youtube || []),
+        ];
+
+        if (allStreamers.length === 0) {
+            container.innerText = "You follow no one";
+            return;
+        }
+
+        allStreamers.forEach((streamer) => {
+            const div = document.createElement("div");
+            div.className = "streamer";
+            div.innerText = `[${streamer.platform}] ${streamer.name}`;
+            container.appendChild(div);
+        });
+    }
 });
