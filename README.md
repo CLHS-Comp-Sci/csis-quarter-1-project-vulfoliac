@@ -10,7 +10,6 @@ I'm focusing on improving code organization, web development, and API interactio
 
 ## Description
 The project is a firefox Add-On that provides the user of a consolidated list of all streamers they follow, automatically opens favorited streams, and notifies them of streams who go live. 
-_Project purpose including inputs/algorithm/outputs_
 
 ## Defense
 The application functioning will prove that I familiarized myself with APIs and the repository will reflect my efforts to maintain organized code.
@@ -19,15 +18,16 @@ The application functioning will prove that I familiarized myself with APIs and 
 I used Visual Studio Code for development; it was developed entirely using HTML, CSS, JavaScript, and a JSON file; it contains 5 seperate files and no applications.
 
 ## Use
-_Insert directions for how to use your project and any command line dependencies and arguments. Think of this section as more of a instruction manual_
+The application is currently not approved or pending for approval as a firefox addon or google application. To use it you need to download all the files, add them to a folder, open about:debugging as a new tab in your firefox browser, navigate to the add-ons, import the add-on using the manifest.json file. Open the new add-on and sign in to either Twitch, YouTube, or both. You will now be provided an updated list of everyone you follow on whatever platforms you are signed into when you open the add-on.
 
 ## Sources
-_Insert and sources used for research here_
+[Mozilla MDN Docs](https://developer.mozilla.org/)
+[Twitch Dev Console](http://dev.twitch.tv/)
+[YouTube Data API](https://developers.google.com/youtube/v3)
+[Stack Overflow](https://stackoverflow.com/)
 
 ## Steps and Progress 
-
-_To mark a box as complete enter an X in between the brackets. See the first check for an example_
-- [X] Use github to keep track of code on weekly bases
+- [X] Use github to keep track of code sometimes
 - [X] Determine a proffesional IDE or applications/materials used
 - [X] Research and gather relevant background knowledge 
 - [X] Create step by step process of checklist items needed to complete project
@@ -36,7 +36,4 @@ _To mark a box as complete enter an X in between the brackets. See the first che
 - [X] Add a main .html and css files that open a window called Livestream Lurker called by the manifest
 - [X] Create logic for checking whether or not a streamer is live given a list of all streamers/channels followed
 - [X] Test program with test authentification codes from twitch you youtube
-- [ ] Write oath flow using twitch and youtube apis providing a per user experience
-- [ ] Write Up and Reflection 
-- [ ] Prepare Presentation
-- [ ] Works Cited
+- [X] Write oath flow using twitch and youtube apis providing a per user experience
