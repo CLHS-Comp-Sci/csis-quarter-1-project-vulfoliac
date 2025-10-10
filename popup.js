@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     function updateDisplay(response) {
+        const container = document.getElementById("streamers");
+
         if (!response) return;
         container.innerHTML = "";
 
@@ -65,15 +67,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         allStreamers.forEach((streamer) => {
             const div = document.createElement("div");
-            div.className = "streamer";
+            div.className = `streamer ${streamer.platform.toLowerCase()}`;
             // div.innerText = `[${streamer.platform}] ${streamer.name}`;
+
+            const icon= document.createElement("img");
+            if (streamer.platform === "Twitch") {
+                icon.src = "icons/twitch.png";
+                icon.alt = "Twitch";
+            } else if (streamer.platform === "YouTube") {
+                icon.src = "icons/youtube.png";
+                icon.alt = "YouTube";
+            }
+            icon.className = "platform-icon";
 
             const link = document.createElement("a");
             link.href = streamer.url; // the destination
-            link.textContent = `[${streamer.platform}] ${streamer.name}`; // what it looks like
+            link.textContent = streamer.name; // what it looks like
             link.target = "_blank" // it will open in a new tab
             link.rel = "noopener noreferrer"; //disallows the site we are opening to edit the extension or know how it was opened
 
+            div.appendChild(icon);
             div.appendChild(link);
             container.appendChild(div);
         });

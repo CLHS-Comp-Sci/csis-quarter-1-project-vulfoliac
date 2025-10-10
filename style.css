@@ -32,11 +32,29 @@ button:hover {
     border-radius: 4px;
 }
 
-.streamer a {
+.streamer.twitch a {
     color: #9a8cff;
     text-decoration: none;
 }
 
-.streamer a:hover {
+.streamer.youtube a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.streamer.twitch a:hover {
+    color: #b27aff;
     text-decoration: underline;
+}
+
+.streamer.youtube a:hover {
+    color: #ff4e45;
+    text-decoration: underline;
+}
+
+.platform-icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 6px;
 }
