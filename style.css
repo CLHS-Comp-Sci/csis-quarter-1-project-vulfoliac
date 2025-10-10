@@ -31,3 +31,12 @@ button:hover {
     background: #2c2c2c;
     border-radius: 4px;
 }
+
+.streamer a {
+    color: #9a8cff;
+    text-decoration: none;
+}
+
+.streamer a:hover {
+    text-decoration: underline;
+}

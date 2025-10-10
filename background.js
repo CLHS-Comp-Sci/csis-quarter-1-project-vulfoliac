@@ -1,5 +1,9 @@
 // redirectUri is important for evil reasons
+const now = new Date();
+console.log(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`);
+
 const redirectUri = browser.identity.getRedirectURL();
+console.log(redirectUri);
 
 // creates empty cache to store streamers
 let twitchDataCache = [];
@@ -43,7 +47,6 @@ async function twitchLogin() {
         `&scope=${encodeURIComponent(twitchScopes)}` +
         `&force_verify=true`;
 
-    // the url 
     try {
         const responseUrl = await browser.identity.launchWebAuthFlow({
             url: authUrl,
@@ -93,7 +96,9 @@ async function fetchTwitchStreamers(accessToken) {
     const followsData = await followsResponse.json();
     twitchDataCache = followsData.data.map(s => ({
         platform: "Twitch",
-        name: s.broadcaster_name
+        name: s.broadcaster_name,
+        url: `https://www.twitch.tv/${s.broadcaster_login}`,
+        game: s.game_name
     }));
     console.log("Twitch Streamers:", twitchDataCache);
     return followsData;
@@ -175,7 +180,9 @@ async function fetchYouTubeStreamers(accessToken) {
     const data = await response.json();
     youtubeDataCache = (data.items || []).map(s => ({
         platform: "YouTube",
-        name: s.snippet.title
+        name: s.snippet.title,
+        url: `https://www.youtube.com/channel/${s.snippet.resourceId.channelId}`,
+        testthing: s.snippet.resourceId.kind
     }));
     console.log("YouTube Streamers:", youtubeDataCache);
     return data;

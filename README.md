@@ -22,8 +22,11 @@ The application is currently not approved or pending for approval as a firefox a
 
 ## Sources
 [Mozilla MDN Docs](https://developer.mozilla.org/)
+
 [Twitch Dev Console](http://dev.twitch.tv/)
+
 [YouTube Data API](https://developers.google.com/youtube/v3)
+
 [Stack Overflow](https://stackoverflow.com/)
 
 ## Steps and Progress 

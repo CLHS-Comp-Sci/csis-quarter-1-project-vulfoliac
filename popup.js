@@ -66,7 +66,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         allStreamers.forEach((streamer) => {
             const div = document.createElement("div");
             div.className = "streamer";
-            div.innerText = `[${streamer.platform}] ${streamer.name}`;
+            // div.innerText = `[${streamer.platform}] ${streamer.name}`;
+
+            const link = document.createElement("a");
+            link.href = streamer.url; // the destination
+            link.textContent = `[${streamer.platform}] ${streamer.name}`; // what it looks like
+            link.target = "_blank" // it will open in a new tab
+            link.rel = "noopener noreferrer"; //disallows the site we are opening to edit the extension or know how it was opened
+
+            div.appendChild(link);
             container.appendChild(div);
         });
     }
