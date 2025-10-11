@@ -58,3 +58,24 @@ button:hover {
     vertical-align: middle;
     margin-right: 6px;
 }
+
+.live-badge {
+    margin-left: 8px;
+    font-weight: bold;
+    font-size: 0.8em;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    vertical-align: middle;
+    text-transform: uppercase;
+}
+
+.streamer.youtube .live-badge {
+    background-color: #ff0000;
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.5);
+}
+
+.streamer.twitch .live-badge {
+    background-color: #9146FF;
+    box-shadow: 0 0 6px rgba(145, 70, 255, 0.5);
+}

@@ -25,24 +25,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         updateDisplay(response);
     });
 
-    const {
-        youtubeData
-    } = await browser.storage.local.get("youtubeData");
-    if (youtubeData && youtubeData.length > 0) {
-        updateDisplay({
-            youtube: youtubeData
-        });
-    }
-
     browser.runtime.sendMessage({
         type: "getData"
     }).then((response) => {
         updateDisplay(response);
     });
 
-    browser.runtime.onMessage.addListener((msg) => {
-        updateDisplay(msg);
-    });
 
     function updateDisplay(response) {
         const container = document.getElementById("streamers");
@@ -64,6 +52,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             container.innerText = "You follow no one";
             return;
         }
+
+        allStreamers.sort((a, b) => {
+            if (a.live !== b.live) return a.live ? -1 : 1;
+
+            if (a.platform !== b.platform) {
+                if (a.platform === "Twitch" && b.platform === "YouTube") return -1;
+            }
+
+            return a.name.localeCompare(b.name);
+        })
 
         allStreamers.forEach((streamer) => {
             const div = document.createElement("div");
@@ -88,6 +86,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             div.appendChild(icon);
             div.appendChild(link);
+
+            if (streamer.live) {
+                const liveBadge = document.createElement("span");
+                liveBadge.textContent = "LIVE NOW";
+                liveBadge.className = "live-badge";
+                div.appendChild(liveBadge);
+            }
+
             container.appendChild(div);
         });
     }
