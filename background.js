@@ -2,7 +2,6 @@ const now = new Date();
 console.log(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`);
 
 const redirectUri = browser.identity.getRedirectURL();
-console.log(redirectUri);
 
 let twitchDataCache = [];
 const twitchClientId = "usja5so2e3x52l2fsg4cd6peagl06u";
@@ -150,7 +149,7 @@ async function youtubeLogin() {
             interactive: true
         });
 
-        console.log("YouTube Response URL:", responseUrl);
+        //console.log("YouTube Response URL:", responseUrl);
 
         const m = responseUrl.match(/access_token=([^&]+)/);
         if (m) {
@@ -159,7 +158,7 @@ async function youtubeLogin() {
                 youtubeToken: accessToken
             });
 
-            console.log("YouTube Access Token:", accessToken);
+            //console.log("YouTube Access Token:", accessToken);
 
             const data = await fetchYouTubeStreamers(accessToken);
             await browser.storage.local.set({
@@ -226,6 +225,7 @@ browser.runtime.onMessage.addListener(async (msg) => {
     if (msg.type === "youtubeLogin") await youtubeLogin();
 
     if (msg.type === "getData") {
+        //console.log("-------------------- calling api --------------------");
         const {
             twitchToken,
             youtubeToken

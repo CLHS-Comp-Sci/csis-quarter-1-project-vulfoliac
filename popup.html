@@ -6,8 +6,19 @@
 </head>
 <body>
     <h2>Livestream Lurker</h2>
-    <button id="twitchLogin">Login with Twitch</button>
-    <button id="youtubeLogin">Login with YouTube</button>
+        <div class = "login-buttons">
+            <button id="twitchLogin">
+                <img src="icons/twitch.png" class="btn-icon">
+                Login with Twitch
+            </button>
+            <button id="youtubeLogin">
+                <img src="icons/youtube-inverted.svg" class="btn-icon">
+                Login with YouTube
+            </button>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchbar" placeholder="Search streamers..." />
+        </div>
     <div id="streamers">No data loaded yet.</div>
 </body>
 </html>
