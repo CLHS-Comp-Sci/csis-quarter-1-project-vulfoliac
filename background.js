@@ -3,15 +3,19 @@ console.log(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}
 
 const redirectUri = browser.identity.getRedirectURL();
 
-let twitchDataCache = [];
+console.log("New:", redirectUri);
+console.log("Old: https://77f3a32bcae9faab241e46b10cb07a6b1d81f826.extensions.allizom.org/")
+
+// ----------------------------------------- Twitch Stuff -----------------------------------------
+
+let twitchStreamers = [];
 const twitchClientId = "usja5so2e3x52l2fsg4cd6peagl06u";
 const twitchScopes = "user:read:follows";
 
 async function twitchLogin() {
     try {
-        const {
-            twitchToken
-        } = await browser.storage.local.get("twitchToken");
+        const { twitchToken } = await browser.storage.local.get("twitchToken");
+        
         if (twitchToken) {
             await fetch("https://id.twitch.tv/oauth2/revoke", {
                 method: "POST",
@@ -20,6 +24,7 @@ async function twitchLogin() {
                 },
                 body: `client_id=${encodeURIComponent(twitchClientId)}&token=${encodeURIComponent(twitchToken)}`
             }).catch(() => {});
+
             await browser.storage.local.remove("twitchToken");
         }
     } catch (err) {
@@ -41,6 +46,7 @@ async function twitchLogin() {
         });
 
         const m = responseUrl.match(/access_token=([^&]+)/);
+        
         if (m) {
             const accessToken = m[1];
             await browser.storage.local.set({
@@ -79,7 +85,7 @@ async function fetchTwitchStreamers(accessToken) {
 
     const followsData = await followsResponse.json();
 
-    twitchDataCache = await Promise.all(
+    twitchStreamers = await Promise.all(
         followsData.data.map(async s=> {
             const isLive = await checkTwitchLive(accessToken, s.broadcaster_login);
             return {
@@ -91,7 +97,8 @@ async function fetchTwitchStreamers(accessToken) {
             }
         })
     )
-    return twitchDataCache;
+
+    return twitchStreamers;
 }
 
 async function checkTwitchLive(accessToken, loginName) {
@@ -111,7 +118,9 @@ async function checkTwitchLive(accessToken, loginName) {
     return data.data && data.data.length > 0;
 }
 
-let youtubeDataCache = [];
+// ---------------------------------------- YouTube Stuff ----------------------------------------
+
+let youtubeStreamers = [];
 const youtubeClientId = "442245912187-9gr180k35aetgvmdmog8flkcte0316m8.apps.googleusercontent.com";
 const youtubeScopes = "https://www.googleapis.com/auth/youtube.readonly";
 
@@ -162,7 +171,7 @@ async function youtubeLogin() {
 
             const data = await fetchYouTubeStreamers(accessToken);
             await browser.storage.local.set({
-                youtubeData: youtubeDataCache
+                youtubeData: youtubeStreamers
             });
         } else {
             console.error("No YouTube token found in redirect.");
@@ -192,12 +201,11 @@ async function fetchYouTubeStreamers(accessToken) {
 
     const data = await response.json();
 
-    console.log(data);
-
-    youtubeDataCache = await Promise.all(
+    youtubeStreamers = await Promise.all(
         (data.items || []).map(async s=> {
             const channelId = s.snippet.resourceId.channelId;
-            const isLive = await checkYouTubeLive(accessToken, channelId);
+            let isLive = await checkYouTubeLive(accessToken, channelId);
+            if (!isLive) { isLive = false}
             return {
                 live: isLive,
                 name: s.snippet.title,
@@ -207,19 +215,28 @@ async function fetchYouTubeStreamers(accessToken) {
         })
     );
 
-    return youtubeDataCache;
+    return youtubeStreamers;
 }
 
 async function checkYouTubeLive(accessToken, channelId) {
     const response = await fetch(
     `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=live`,
-    { headers: { "Authorization": `Bearer ${accessToken}` } }
+    { 
+        headers: { 
+            "Authorization": `Bearer ${accessToken}`
+        }     
+    }
   );
 
   const data = await response.json();
+  if (data.error.code === 403) {
+    console.warn("goddamned daily quota");
+  }
+  
   return data.items && data.items.length > 0;
 }
 
+// -------------------------------------- Awesome Listener --------------------------------------
 browser.runtime.onMessage.addListener(async (msg) => {
     if (msg.type === "twitchLogin") await twitchLogin();
     if (msg.type === "youtubeLogin") await youtubeLogin();
@@ -233,6 +250,9 @@ browser.runtime.onMessage.addListener(async (msg) => {
 
         const twitchData = twitchToken ? await fetchTwitchStreamers(twitchToken) : [];
         const youtubeData = youtubeToken ? await fetchYouTubeStreamers(youtubeToken) : [];
+
+        if (youtubeData) console.log(`YouTube Streamers: ${youtubeData.length}`);
+        if (twitchData) console.log(`Twitch Streamers: ${twitchData.length}`);
 
         return Promise.resolve({
             twitch: twitchData,

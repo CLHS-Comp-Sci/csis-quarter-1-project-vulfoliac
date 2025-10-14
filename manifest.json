@@ -12,8 +12,9 @@
     "https://accounts.google.com/*"
     ],
     "browser_action": {
-    "default_popup": "popup.html",
-    "default_title": "Livestream Lurker"
+        "default_popup": "popup.html",
+        "default_title": "Livestream Lurker",
+        "browser_style": false
     },
     "background": {
         "scripts": ["background.js"],
