@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="settings.css">
+    <script defer src="settings.js"></script>
+</head>
+<body>
+    <h2>LSL Settings</h2>
+
+
+    <div class="settings-group">
+        <h3>Display</h3>
+        <label>
+            <span>Compact View</span>
+            <input type="checkbox" id="compactView">
+        </label>
+
+        <label>
+            <span>Theme</span>
+            <select id="theme">
+                <option value="twitch">Twitch</option>
+                <option value="YouTube">YouTube</option>
+                <option value="system">System Default</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+        </label>
+
+        <label>
+            <span>Font Size</span>
+            <select id="fontSize">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </label>
+
+        <label>
+            <span>Streamer Display Limit</span>
+            <input type="number" id="streamerLimit" min="5" max="250">
+        </label>
+
+        <label>
+            <span>Show Platform Symbols</span>
+            <input type="checkBox" id="showPlatform">
+        </label>
+    </div>
+
+
+
+    <div class="settings-group">
+        <h3>Behavior</h3>
+        <label><span>Refresh in Background</span><input type="checkbox" id="backgroundRefresh"></label>
+        <label>
+            <span>Auto-Refresh Interval (min)</span>
+            <input type="range" id="refreshInterval" min="1" max="15" value="5">
+        </label>
+        
+        <label>
+            <span>Show Offline Streamers</span>
+            <input type="checkbox" id="showOffline">
+        </label>
+        
+        <label>
+            <span>Show Favorites First</span>
+            <input type="checkbox" id="showFavoritesFirst">
+        </label>
+        
+        <label>
+            <span>Sort Preference</span>
+            <select id="sortPreference">
+                <option value="liveFirst">Live First</option>
+                <option value="alphabetical">Alphabetical</option>
+                <option value="platform">Platform Priority</option>
+            </select>
+        </label>
+        
+        <label>
+            <span>Search Persistence</span>
+            <input type="checkbox" id="searchPersistence">
+        </label>
+        
+        <label>
+            <span>Notifications Enabled</span>
+            <input type="checkbox" id="notifications">
+        </label>
+    </div>
+
+
+
+    <div class="settings-group">
+        <h3>Additional Tools</h3>
+        <label>
+            <span>Subscription Tracker</span>
+            <input type="checkbox" id="trackSubs">
+        </label>
+        <label>
+            <span>Stream Calendar</span>
+            <input type="checkbox" id="trackSubs">
+        </label>
+    </div>
+
+    <div class="footer">Settings are saved automatically</div>
+
+</body>
+</html>
